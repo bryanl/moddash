@@ -1,0 +1,18 @@
+syntax = "proto3";
+package proto;
+
+message NavigationEntry {
+    string name = 1;
+    string path = 2;
+    NavigationEntry subs = 3;
+}
+
+message NavigationResponse {
+    repeated NavigationEntry entries = 1;
+}
+
+message Empty {}
+
+service Module {
+    rpc Navigation(Empty) returns (NavigationResponse);
+}
