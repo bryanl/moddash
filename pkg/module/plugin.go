@@ -28,6 +28,15 @@ type GRPCClient struct {
 	client proto.ModuleClient
 }
 
+func (c *GRPCClient) Metadata() (*proto.Metadata, error) {
+	resp, err := c.client.Metadata(context.Background(), &proto.Empty{})
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.Metadata, nil
+}
+
 func (c *GRPCClient) Navigation() ([]*proto.NavigationEntry, error) {
 	resp, err := c.client.Navigation(context.Background(), &proto.Empty{})
 	if err != nil {
@@ -42,6 +51,17 @@ type GRPCServer struct {
 }
 
 var _ proto.ModuleServer = (*GRPCServer)(nil)
+
+func (s *GRPCServer) Metadata(ctx context.Context, in *proto.Empty) (*proto.MetadataResponse, error) {
+	metadata, err := s.Impl.Metadata()
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.MetadataResponse{
+		Metadata: metadata,
+	}, nil
+}
 
 func (s *GRPCServer) Navigation(ctx context.Context, in *proto.Empty) (*proto.NavigationResponse, error) {
 	entries, err := s.Impl.Navigation()

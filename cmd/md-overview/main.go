@@ -19,11 +19,34 @@ func main() {
 
 type overview struct{}
 
+func (overview) Metadata() (*proto.Metadata, error) {
+	return &proto.Metadata{
+		Name:     "Overview",
+		RootPath: "/overview",
+	}, nil
+}
+
 func (overview) Navigation() ([]*proto.NavigationEntry, error) {
 	entries := []*proto.NavigationEntry{
 		{
-			Name: "Other",
-			Path: "/other",
+			Name: "Workloads",
+			Path: "/workloads",
+		},
+		{
+			Name: "Service",
+			Path: "/service",
+		},
+		{
+			Name: "Config & Storage",
+			Path: "/config",
+		},
+		{
+			Name: "Custom Resources",
+			Path: "/custom",
+		},
+		{
+			Name: "RBAC",
+			Path: "/rbac",
 		},
 	}
 	return entries, nil

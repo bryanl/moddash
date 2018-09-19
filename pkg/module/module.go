@@ -6,6 +6,7 @@ import (
 )
 
 type Module interface {
+	Metadata() (*proto.Metadata, error)
 	Navigation() ([]*proto.NavigationEntry, error)
 }
 

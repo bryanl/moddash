@@ -10,20 +10,27 @@ func main() {
 	plugin.Serve(&plugin.ServeConfig{
 		HandshakeConfig: module.Handshake,
 		Plugins: map[string]plugin.Plugin{
-			"overview": &module.Plugin{Impl: &overview{}},
+			"other": &module.Plugin{Impl: &other{}},
 		},
 
 		GRPCServer: plugin.DefaultGRPCServer,
 	})
 }
 
-type overview struct{}
+type other struct{}
 
-func (overview) Navigation() ([]*proto.NavigationEntry, error) {
+func (other) Metadata() (*proto.Metadata, error) {
+	return &proto.Metadata{
+		Name:     "Other",
+		RootPath: "/other",
+	}, nil
+}
+
+func (other) Navigation() ([]*proto.NavigationEntry, error) {
 	entries := []*proto.NavigationEntry{
 		{
-			Name: "Overview",
-			Path: "/overview",
+			Name: "sub 1",
+			Path: "/other",
 		},
 	}
 	return entries, nil
