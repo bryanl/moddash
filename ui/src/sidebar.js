@@ -1,4 +1,5 @@
 import React from 'react';
+import { Menu } from 'semantic-ui-react';
 
 import Navigation from './navigation';
 
@@ -16,6 +17,8 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    return <Navigation results={this.state.results} />;
+    return <Menu vertical size="large">
+      <Navigation results={this.state.results} />
+    </Menu>;
   }
 }

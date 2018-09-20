@@ -1,6 +1,7 @@
 import * as path from 'path-browserify';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
+
 
 export default class Navigation extends React.Component {
   render() {
@@ -13,16 +14,16 @@ export default class Navigation extends React.Component {
     const entries = results.map((result, index) => {
       var currentPath = path.join(this.props.parentPath || '', result.path)
       var subMe = (
-        <ul>
+        <Menu.Menu>
           <Navigation results={result.subs} parentPath={currentPath} />
-        </ul>
+        </Menu.Menu>
       );
 
       return (
-        <li>
-          <Link to={currentPath}>{result.name}</Link>
+        <Menu.Item href={currentPath}>
+          {result.name}
           {subMe}
-        </li>
+        </Menu.Item>
       );
     });
 
