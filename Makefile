@@ -15,3 +15,11 @@ build-module-other:
 
 generate-proto:
 	protoc --go_out=plugins=grpc:. pkg/proto/*.proto
+
+setup-ui: ui-deps run-ui
+
+run-ui:
+	cd ui; npm start
+
+ui-deps:
+	cd ui; npm i
