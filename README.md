@@ -1,5 +1,10 @@
 # moddash
 
+## requirements
+
+* Go 1.11
+* npm
+
 ## up and running
 
 Run the backend (in a terminal)
