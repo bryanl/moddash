@@ -1,9 +1,12 @@
 package module
 
 import (
+	"encoding/json"
 	"sort"
+	"strings"
 
 	"github.com/bryanl/moddash/pkg/proto"
+	"github.com/pkg/errors"
 )
 
 type Loader struct {
@@ -34,6 +37,36 @@ func NewLoader(moduleCachePath string) (*Loader, error) {
 	return loader, nil
 }
 
+func (l *Loader) Contents(path string) ([]Content, error) {
+	parts := strings.Split(path, "/")
+
+	// find client
+	for _, client := range l.clients {
+		if client.Name != parts[0] {
+			continue
+		}
+
+		dataContents, err := client.Module.Contents(strings.Join(parts[1:], "/"))
+		if err != nil {
+			return nil, err
+		}
+
+		var contents []Content
+		for _, dataContent := range dataContents {
+			var c Content
+			if err = json.Unmarshal(dataContent.Data, &c); err != nil {
+				return nil, err
+			}
+
+			contents = append(contents, c)
+		}
+
+		return contents, nil
+	}
+
+	return nil, errors.New("not found")
+}
+
 func (l *Loader) NavigationEntries() ([]*proto.NavigationEntry, error) {
 	var entries []*proto.NavigationEntry
 
@@ -50,7 +83,7 @@ func (l *Loader) NavigationEntries() ([]*proto.NavigationEntry, error) {
 
 		entry := &proto.NavigationEntry{
 			Name: metadata.Name,
-			Path: metadata.RootPath,
+			Path: client.Name,
 			Subs: subEntries,
 		}
 

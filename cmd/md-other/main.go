@@ -1,28 +1,49 @@
 package main
 
 import (
+	"encoding/json"
+
 	"github.com/bryanl/moddash/pkg/module"
 	"github.com/bryanl/moddash/pkg/proto"
-	plugin "github.com/hashicorp/go-plugin"
 )
 
 func main() {
-	plugin.Serve(&plugin.ServeConfig{
-		HandshakeConfig: module.Handshake,
-		Plugins: map[string]plugin.Plugin{
-			"other": &module.Plugin{Impl: &other{}},
-		},
-
-		GRPCServer: plugin.DefaultGRPCServer,
-	})
+	module.NewServer("overview", &other{})
 }
 
 type other struct{}
 
+func (other) Contents(path string) ([]*proto.Content, error) {
+	var contents []*proto.Content
+
+	c := module.Content{
+		ContentType: "table",
+		Data: map[string]interface{}{
+			"columns": []string{"1", "2", "3"},
+			"rows": [][]string{
+				{"z", "y", "x"},
+			},
+		},
+	}
+
+	data, err := json.Marshal(&c)
+	if err != nil {
+		return nil, err
+	}
+
+	content := &proto.Content{
+		Data: data,
+	}
+
+	contents = append(contents, content)
+
+	return contents, nil
+}
+
 func (other) Metadata() (*proto.Metadata, error) {
 	return &proto.Metadata{
 		Name:     "Other",
-		RootPath: "/other",
+		RootPath: "other",
 	}, nil
 }
 

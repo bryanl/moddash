@@ -34,6 +34,7 @@ func AvailableModules(moduleCacheDir string) ([]string, error) {
 }
 
 type Client struct {
+	Name   string
 	Module Module
 
 	client *plugin.Client
@@ -69,6 +70,7 @@ func NewClient(modulePath string) (*Client, error) {
 	}
 
 	return &Client{
+		Name:   file,
 		Module: m,
 
 		client: pluginClient,

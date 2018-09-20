@@ -6,6 +6,7 @@ import (
 )
 
 type Module interface {
+	Contents(path string) ([]*proto.Content, error)
 	Metadata() (*proto.Metadata, error)
 	Navigation() ([]*proto.NavigationEntry, error)
 }
@@ -14,6 +15,6 @@ type Module interface {
 var Handshake = plugin.HandshakeConfig{
 	// This isn't required when using VersionedPlugins
 	ProtocolVersion:  1,
-	MagicCookieKey:   "BASIC_PLUGIN",
-	MagicCookieValue: "handshake",
+	MagicCookieKey:   "HQ_MODULE",
+	MagicCookieValue: "seven",
 }

@@ -1,28 +1,50 @@
 package main
 
 import (
+	"encoding/json"
+
 	"github.com/bryanl/moddash/pkg/module"
 	"github.com/bryanl/moddash/pkg/proto"
-	plugin "github.com/hashicorp/go-plugin"
 )
 
 func main() {
-	plugin.Serve(&plugin.ServeConfig{
-		HandshakeConfig: module.Handshake,
-		Plugins: map[string]plugin.Plugin{
-			"other": &module.Plugin{Impl: &overview{}},
-		},
-
-		GRPCServer: plugin.DefaultGRPCServer,
-	})
+	module.NewServer("overview", &overview{})
 }
 
 type overview struct{}
 
+func (overview) Contents(path string) ([]*proto.Content, error) {
+	var contents []*proto.Content
+
+	c := module.Content{
+		ContentType: "table",
+		Data: map[string]interface{}{
+			"columns": []string{"foo", "bar", "baz"},
+			"rows": [][]string{
+				{"a", "b", "c"},
+			},
+			"title": "table 1",
+		},
+	}
+
+	data, err := json.Marshal(&c)
+	if err != nil {
+		return nil, err
+	}
+
+	content := &proto.Content{
+		Data: data,
+	}
+
+	contents = append(contents, content)
+
+	return contents, nil
+}
+
 func (overview) Metadata() (*proto.Metadata, error) {
 	return &proto.Metadata{
 		Name:     "Overview",
-		RootPath: "/overview",
+		RootPath: "overview",
 	}, nil
 }
 

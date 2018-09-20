@@ -1,6 +1,18 @@
 syntax = "proto3";
 package proto;
 
+message Content {
+    bytes data = 1;
+}
+
+message ContentRequest {
+    string path = 1;
+}
+
+message ContentResponse {
+    repeated Content contents = 1;
+}
+
 message Metadata {
     string name = 1;
     string rootPath = 2;
@@ -23,6 +35,7 @@ message NavigationResponse {
 message Empty {}
 
 service Module {
+    rpc Contents(ContentRequest) returns (ContentResponse);
     rpc Metadata(Empty) returns (MetadataResponse);
     rpc Navigation(Empty) returns (NavigationResponse);
 }

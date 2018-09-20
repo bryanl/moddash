@@ -25,6 +25,123 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
+type Content struct {
+	Data                 []byte   `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Content) Reset()         { *m = Content{} }
+func (m *Content) String() string { return proto.CompactTextString(m) }
+func (*Content) ProtoMessage()    {}
+func (*Content) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ac20a1b488b71508, []int{0}
+}
+
+func (m *Content) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Content.Unmarshal(m, b)
+}
+func (m *Content) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Content.Marshal(b, m, deterministic)
+}
+func (m *Content) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Content.Merge(m, src)
+}
+func (m *Content) XXX_Size() int {
+	return xxx_messageInfo_Content.Size(m)
+}
+func (m *Content) XXX_DiscardUnknown() {
+	xxx_messageInfo_Content.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Content proto.InternalMessageInfo
+
+func (m *Content) GetData() []byte {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type ContentRequest struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ContentRequest) Reset()         { *m = ContentRequest{} }
+func (m *ContentRequest) String() string { return proto.CompactTextString(m) }
+func (*ContentRequest) ProtoMessage()    {}
+func (*ContentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ac20a1b488b71508, []int{1}
+}
+
+func (m *ContentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContentRequest.Unmarshal(m, b)
+}
+func (m *ContentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContentRequest.Marshal(b, m, deterministic)
+}
+func (m *ContentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContentRequest.Merge(m, src)
+}
+func (m *ContentRequest) XXX_Size() int {
+	return xxx_messageInfo_ContentRequest.Size(m)
+}
+func (m *ContentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ContentRequest proto.InternalMessageInfo
+
+func (m *ContentRequest) GetPath() string {
+	if m != nil {
+		return m.Path
+	}
+	return ""
+}
+
+type ContentResponse struct {
+	Contents             []*Content `protobuf:"bytes,1,rep,name=contents,proto3" json:"contents,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *ContentResponse) Reset()         { *m = ContentResponse{} }
+func (m *ContentResponse) String() string { return proto.CompactTextString(m) }
+func (*ContentResponse) ProtoMessage()    {}
+func (*ContentResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ac20a1b488b71508, []int{2}
+}
+
+func (m *ContentResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContentResponse.Unmarshal(m, b)
+}
+func (m *ContentResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContentResponse.Marshal(b, m, deterministic)
+}
+func (m *ContentResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContentResponse.Merge(m, src)
+}
+func (m *ContentResponse) XXX_Size() int {
+	return xxx_messageInfo_ContentResponse.Size(m)
+}
+func (m *ContentResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContentResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ContentResponse proto.InternalMessageInfo
+
+func (m *ContentResponse) GetContents() []*Content {
+	if m != nil {
+		return m.Contents
+	}
+	return nil
+}
+
 type Metadata struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	RootPath             string   `protobuf:"bytes,2,opt,name=rootPath,proto3" json:"rootPath,omitempty"`
@@ -37,7 +154,7 @@ func (m *Metadata) Reset()         { *m = Metadata{} }
 func (m *Metadata) String() string { return proto.CompactTextString(m) }
 func (*Metadata) ProtoMessage()    {}
 func (*Metadata) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ac20a1b488b71508, []int{0}
+	return fileDescriptor_ac20a1b488b71508, []int{3}
 }
 
 func (m *Metadata) XXX_Unmarshal(b []byte) error {
@@ -83,7 +200,7 @@ func (m *MetadataResponse) Reset()         { *m = MetadataResponse{} }
 func (m *MetadataResponse) String() string { return proto.CompactTextString(m) }
 func (*MetadataResponse) ProtoMessage()    {}
 func (*MetadataResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ac20a1b488b71508, []int{1}
+	return fileDescriptor_ac20a1b488b71508, []int{4}
 }
 
 func (m *MetadataResponse) XXX_Unmarshal(b []byte) error {
@@ -124,7 +241,7 @@ func (m *NavigationEntry) Reset()         { *m = NavigationEntry{} }
 func (m *NavigationEntry) String() string { return proto.CompactTextString(m) }
 func (*NavigationEntry) ProtoMessage()    {}
 func (*NavigationEntry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ac20a1b488b71508, []int{2}
+	return fileDescriptor_ac20a1b488b71508, []int{5}
 }
 
 func (m *NavigationEntry) XXX_Unmarshal(b []byte) error {
@@ -177,7 +294,7 @@ func (m *NavigationResponse) Reset()         { *m = NavigationResponse{} }
 func (m *NavigationResponse) String() string { return proto.CompactTextString(m) }
 func (*NavigationResponse) ProtoMessage()    {}
 func (*NavigationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ac20a1b488b71508, []int{3}
+	return fileDescriptor_ac20a1b488b71508, []int{6}
 }
 
 func (m *NavigationResponse) XXX_Unmarshal(b []byte) error {
@@ -215,7 +332,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ac20a1b488b71508, []int{4}
+	return fileDescriptor_ac20a1b488b71508, []int{7}
 }
 
 func (m *Empty) XXX_Unmarshal(b []byte) error {
@@ -237,6 +354,9 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 func init() {
+	proto.RegisterType((*Content)(nil), "proto.Content")
+	proto.RegisterType((*ContentRequest)(nil), "proto.ContentRequest")
+	proto.RegisterType((*ContentResponse)(nil), "proto.ContentResponse")
 	proto.RegisterType((*Metadata)(nil), "proto.Metadata")
 	proto.RegisterType((*MetadataResponse)(nil), "proto.MetadataResponse")
 	proto.RegisterType((*NavigationEntry)(nil), "proto.NavigationEntry")
@@ -256,6 +376,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ModuleClient interface {
+	Contents(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*ContentResponse, error)
 	Metadata(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MetadataResponse, error)
 	Navigation(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*NavigationResponse, error)
 }
@@ -266,6 +387,15 @@ type moduleClient struct {
 
 func NewModuleClient(cc *grpc.ClientConn) ModuleClient {
 	return &moduleClient{cc}
+}
+
+func (c *moduleClient) Contents(ctx context.Context, in *ContentRequest, opts ...grpc.CallOption) (*ContentResponse, error) {
+	out := new(ContentResponse)
+	err := c.cc.Invoke(ctx, "/proto.Module/Contents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *moduleClient) Metadata(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MetadataResponse, error) {
@@ -288,12 +418,31 @@ func (c *moduleClient) Navigation(ctx context.Context, in *Empty, opts ...grpc.C
 
 // ModuleServer is the server API for Module service.
 type ModuleServer interface {
+	Contents(context.Context, *ContentRequest) (*ContentResponse, error)
 	Metadata(context.Context, *Empty) (*MetadataResponse, error)
 	Navigation(context.Context, *Empty) (*NavigationResponse, error)
 }
 
 func RegisterModuleServer(s *grpc.Server, srv ModuleServer) {
 	s.RegisterService(&_Module_serviceDesc, srv)
+}
+
+func _Module_Contents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ContentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ModuleServer).Contents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Module/Contents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ModuleServer).Contents(ctx, req.(*ContentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Module_Metadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -337,6 +486,10 @@ var _Module_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ModuleServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Contents",
+			Handler:    _Module_Contents_Handler,
+		},
+		{
 			MethodName: "Metadata",
 			Handler:    _Module_Metadata_Handler,
 		},
@@ -352,21 +505,26 @@ var _Module_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("pkg/proto/module.proto", fileDescriptor_ac20a1b488b71508) }
 
 var fileDescriptor_ac20a1b488b71508 = []byte{
-	// 249 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x50, 0x4b, 0x4b, 0xc3, 0x40,
-	0x10, 0x26, 0x36, 0x6d, 0xe3, 0x54, 0xa8, 0xcc, 0xa1, 0xc6, 0x9e, 0xca, 0x9e, 0x8a, 0x42, 0xab,
-	0x11, 0x2f, 0x5e, 0x3c, 0xd5, 0x5b, 0x45, 0xf2, 0x0f, 0xb6, 0x74, 0xa8, 0x41, 0xb3, 0xbb, 0xec,
-	0x4e, 0x85, 0xfc, 0x7b, 0x61, 0xcc, 0x43, 0xa2, 0xf4, 0xb4, 0xf3, 0xf8, 0x5e, 0x3b, 0x30, 0x73,
-	0x1f, 0x87, 0xb5, 0xf3, 0x96, 0xed, 0xba, 0xb4, 0xfb, 0xe3, 0x27, 0xad, 0xa4, 0xc1, 0xa1, 0x3c,
-	0xea, 0x09, 0x92, 0x2d, 0xb1, 0xde, 0x6b, 0xd6, 0x88, 0x10, 0x1b, 0x5d, 0x52, 0x1a, 0x2d, 0xa2,
-	0xe5, 0x79, 0x2e, 0x35, 0xce, 0x21, 0xf1, 0xd6, 0xf2, 0x9b, 0xe6, 0xf7, 0xf4, 0x4c, 0xe6, 0x6d,
-	0xaf, 0x9e, 0xe1, 0xb2, 0xe1, 0xe6, 0x14, 0x9c, 0x35, 0x81, 0xf0, 0x16, 0x92, 0xb2, 0x9e, 0x89,
-	0xce, 0x24, 0x9b, 0xfe, 0x18, 0xae, 0x5a, 0x68, 0x0b, 0x50, 0x04, 0xd3, 0x57, 0xfd, 0x55, 0x1c,
-	0x34, 0x17, 0xd6, 0x6c, 0x0c, 0xfb, 0xea, 0xdf, 0x0c, 0x08, 0xb1, 0xeb, 0xfc, 0xa5, 0xc6, 0x1b,
-	0x88, 0xc3, 0x71, 0x17, 0xd2, 0xc1, 0x62, 0xb0, 0x9c, 0x64, 0xb3, 0xda, 0xa3, 0xa7, 0x96, 0x0b,
-	0x46, 0xbd, 0x00, 0x76, 0x8b, 0x36, 0xe9, 0x1d, 0x8c, 0xc9, 0xb0, 0x2f, 0x28, 0xa4, 0xd1, 0x49,
-	0x91, 0x06, 0xa6, 0xc6, 0x30, 0xdc, 0x94, 0x8e, 0xab, 0xcc, 0xc3, 0x68, 0x2b, 0xb7, 0xc4, 0xfb,
-	0x5f, 0xe7, 0xbb, 0xa8, 0xf9, 0x82, 0x99, 0x5f, 0xf5, 0xbf, 0xdd, 0xf8, 0x3e, 0x02, 0x74, 0x0e,
-	0x3d, 0xd2, 0xf5, 0x9f, 0x08, 0x0d, 0x6d, 0x37, 0x92, 0xcd, 0xc3, 0x77, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0xd3, 0xda, 0x57, 0xdb, 0xd0, 0x01, 0x00, 0x00,
+	// 323 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x51, 0x5d, 0x4b, 0xc3, 0x30,
+	0x14, 0xa5, 0xfb, 0xac, 0x77, 0x63, 0x93, 0x80, 0xb3, 0x16, 0x84, 0x11, 0x7c, 0x18, 0x13, 0x36,
+	0xad, 0xf8, 0xa0, 0x20, 0x3e, 0xc8, 0x7c, 0x9b, 0x48, 0xff, 0x41, 0xe6, 0xc2, 0x2c, 0xda, 0xa4,
+	0x36, 0xa9, 0xb0, 0x1f, 0xe5, 0x7f, 0x94, 0xde, 0x26, 0xa9, 0x54, 0x7d, 0xea, 0xed, 0xbd, 0xe7,
+	0x9e, 0x73, 0xee, 0x09, 0x4c, 0xb2, 0xb7, 0xdd, 0x32, 0xcb, 0xa5, 0x96, 0xcb, 0x54, 0x6e, 0x8b,
+	0x77, 0xbe, 0xc0, 0x1f, 0xd2, 0xc5, 0x0f, 0x3d, 0x85, 0xfe, 0x83, 0x14, 0x9a, 0x0b, 0x4d, 0x08,
+	0x74, 0xb6, 0x4c, 0xb3, 0xc0, 0x9b, 0x7a, 0xb3, 0x61, 0x8c, 0x35, 0x3d, 0x83, 0x91, 0x19, 0xc7,
+	0xfc, 0xa3, 0xe0, 0x0a, 0x51, 0x19, 0xd3, 0xaf, 0x88, 0x3a, 0x88, 0xb1, 0xa6, 0x77, 0x30, 0x76,
+	0x28, 0x95, 0x49, 0xa1, 0x38, 0x99, 0x83, 0xff, 0x52, 0xb5, 0x54, 0xe0, 0x4d, 0xdb, 0xb3, 0x41,
+	0x34, 0xaa, 0x84, 0x17, 0x16, 0xe9, 0xe6, 0xf4, 0x16, 0xfc, 0x35, 0xd7, 0xac, 0x14, 0x2c, 0xe9,
+	0x05, 0x4b, 0xb9, 0xa5, 0x2f, 0x6b, 0x12, 0x82, 0x9f, 0x4b, 0xa9, 0x9f, 0x4b, 0xd9, 0x16, 0xf6,
+	0xdd, 0x3f, 0xbd, 0x87, 0x43, 0xbb, 0xeb, 0xb4, 0xcf, 0xc1, 0x4f, 0x4d, 0x0f, 0x79, 0x06, 0xd1,
+	0xd8, 0x68, 0x3b, 0xa8, 0x03, 0x50, 0x0e, 0xe3, 0x27, 0xf6, 0x99, 0xec, 0x98, 0x4e, 0xa4, 0x58,
+	0x09, 0x9d, 0xef, 0xff, 0xf4, 0x60, 0xcf, 0x6e, 0xd5, 0x67, 0x93, 0x39, 0x74, 0x54, 0xb1, 0x51,
+	0x41, 0x1b, 0xef, 0x9b, 0x18, 0x8d, 0x06, 0x5b, 0x8c, 0x18, 0xfa, 0x08, 0xa4, 0x1e, 0x38, 0xa7,
+	0x17, 0xd0, 0xe7, 0x42, 0xe7, 0x09, 0xb7, 0x21, 0xfd, 0x47, 0x62, 0x61, 0xb4, 0x0f, 0xdd, 0x55,
+	0x9a, 0xe9, 0x7d, 0xf4, 0xe5, 0x41, 0x6f, 0x8d, 0x0f, 0x4a, 0x6e, 0xc0, 0x37, 0xa1, 0x2a, 0x72,
+	0xd4, 0x48, 0xb9, 0x7a, 0xb5, 0x70, 0xd2, 0x6c, 0x1b, 0x03, 0x97, 0x3f, 0xa2, 0x1f, 0x1a, 0x0c,
+	0xf2, 0x87, 0xc7, 0xcd, 0xc8, 0xec, 0xca, 0x35, 0x40, 0xed, 0xae, 0xb1, 0x74, 0xf2, 0xcb, 0xbe,
+	0x5d, 0xdb, 0xf4, 0x70, 0x72, 0xf5, 0x1d, 0x00, 0x00, 0xff, 0xff, 0xdb, 0x20, 0xb1, 0x5a, 0x90,
+	0x02, 0x00, 0x00,
 }

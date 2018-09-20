@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"time"
 
 	"github.com/bryanl/moddash/internal/service"
 	"github.com/bryanl/moddash/pkg/module"
@@ -46,7 +45,5 @@ func run(moduleCachePath string) error {
 	<-sigCh
 
 	log.Println("waiting for modules to close")
-	time.Sleep(3 * time.Second)
-
 	return nil
 }
