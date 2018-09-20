@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	plugin "github.com/hashicorp/go-plugin"
 	"github.com/pkg/errors"
@@ -69,8 +70,10 @@ func NewClient(modulePath string) (*Client, error) {
 		return nil, errors.New("module not found")
 	}
 
+	name := strings.TrimPrefix(strings.TrimSuffix(file, filepath.Ext(file)), "md-")
+
 	return &Client{
-		Name:   file,
+		Name:   name,
 		Module: m,
 
 		client: pluginClient,

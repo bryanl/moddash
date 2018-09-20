@@ -11,10 +11,18 @@ func main() {
 	module.NewServer("overview", &overview{})
 }
 
+var (
+	contents = map[string][]module.Content{}
+)
+
 type overview struct{}
 
 func (overview) Contents(path string) ([]*proto.Content, error) {
 	var contents []*proto.Content
+
+	if path == "" {
+		path = "overview"
+	}
 
 	c := module.Content{
 		ContentType: "table",
@@ -23,7 +31,7 @@ func (overview) Contents(path string) ([]*proto.Content, error) {
 			"rows": [][]string{
 				{"a", "b", "c"},
 			},
-			"title": "table 1",
+			"title": path,
 		},
 	}
 
@@ -51,24 +59,24 @@ func (overview) Metadata() (*proto.Metadata, error) {
 func (overview) Navigation() ([]*proto.NavigationEntry, error) {
 	entries := []*proto.NavigationEntry{
 		{
-			Name: "Workloads",
-			Path: "/workloads",
+			Key:  "Workloads",
+			Path: "/overview/workloads",
 		},
 		{
-			Name: "Service",
-			Path: "/service",
+			Key:  "Service",
+			Path: "/overview/service",
 		},
 		{
-			Name: "Config & Storage",
-			Path: "/config",
+			Key:  "Config & Storage",
+			Path: "/overview/config-and-storage",
 		},
 		{
-			Name: "Custom Resources",
-			Path: "/custom",
+			Key:  "Custom Resources",
+			Path: "/overview/custom-resources",
 		},
 		{
-			Name: "RBAC",
-			Path: "/rbac",
+			Key:  "RBAC",
+			Path: "/overview/rbac",
 		},
 	}
 	return entries, nil

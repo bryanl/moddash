@@ -17,7 +17,7 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
-    return <Menu vertical size="large">
+    return <Menu vertical size="large" fluid={true}>
       <Navigation results={this.state.results} />
     </Menu>;
   }

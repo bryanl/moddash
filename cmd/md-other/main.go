@@ -16,6 +16,10 @@ type other struct{}
 func (other) Contents(path string) ([]*proto.Content, error) {
 	var contents []*proto.Content
 
+	if path == "" {
+		path = "other"
+	}
+
 	c := module.Content{
 		ContentType: "table",
 		Data: map[string]interface{}{
@@ -23,6 +27,7 @@ func (other) Contents(path string) ([]*proto.Content, error) {
 			"rows": [][]string{
 				{"z", "y", "x"},
 			},
+			"title": path,
 		},
 	}
 
@@ -50,8 +55,8 @@ func (other) Metadata() (*proto.Metadata, error) {
 func (other) Navigation() ([]*proto.NavigationEntry, error) {
 	entries := []*proto.NavigationEntry{
 		{
-			Name: "sub 1",
-			Path: "/other",
+			Key:  "sub 1",
+			Path: "/other/sub-1",
 		},
 	}
 	return entries, nil

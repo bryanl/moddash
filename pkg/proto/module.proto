@@ -23,7 +23,7 @@ message MetadataResponse {
 }
 
 message NavigationEntry {
-    string name = 1;
+    string key = 1;
     string path = 2;
     repeated NavigationEntry subs = 3;
 }

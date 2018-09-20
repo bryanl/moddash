@@ -20,14 +20,14 @@ func newContents(loader *module.Loader) *contents {
 }
 
 func (n *contents) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+
 	path := r.URL.Path[len("/contents/"):]
 	contents, err := n.loader.Contents(path)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
-
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 
 	json.NewEncoder(w).Encode(contents)
 }

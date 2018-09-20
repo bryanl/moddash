@@ -40,13 +40,14 @@ func NewLoader(moduleCachePath string) (*Loader, error) {
 func (l *Loader) Contents(path string) ([]Content, error) {
 	parts := strings.Split(path, "/")
 
-	// find client
 	for _, client := range l.clients {
 		if client.Name != parts[0] {
 			continue
 		}
 
-		dataContents, err := client.Module.Contents(strings.Join(parts[1:], "/"))
+		contentPath := strings.Join(parts[1:], "/")
+
+		dataContents, err := client.Module.Contents(contentPath)
 		if err != nil {
 			return nil, err
 		}
@@ -82,7 +83,7 @@ func (l *Loader) NavigationEntries() ([]*proto.NavigationEntry, error) {
 		}
 
 		entry := &proto.NavigationEntry{
-			Name: metadata.Name,
+			Key:  metadata.Name,
 			Path: client.Name,
 			Subs: subEntries,
 		}
@@ -91,11 +92,11 @@ func (l *Loader) NavigationEntries() ([]*proto.NavigationEntry, error) {
 	}
 
 	sort.Slice(entries, func(i, j int) bool {
-		if entries[i].Name == "Overview" {
+		if entries[i].Key == "Overview" {
 			return true
 		}
 
-		return entries[i].Name < entries[j].Name
+		return entries[i].Key < entries[j].Key
 	})
 
 	return entries, nil

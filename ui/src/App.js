@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 import DummyContent from './content';
-import Sidebar from './sidebar';
+import Navigation from './navigation';
+
 
 class App extends Component {
+  state = {
+    navigationEntries: []
+  };
+
+  componentDidMount() {
+    fetch("http://localhost:8000/navigation")
+      .then(response => response.json())
+      .then(response => {
+        this.setState({ navigationEntries: response });
+      });
+  }
+
+  entryPath(entry) {
+    return "/" + entry.path;
+  }
+
   render() {
     return (
       <Router>
@@ -19,10 +37,33 @@ class App extends Component {
           <div className="ui grid">
             <div className="row">
               <div className="three wide column">
-                <Sidebar />
+                <Menu vertical size="large" fluid={true}>
+                  <Navigation results={this.state.navigationEntries} />
+                </Menu>
               </div>
-              <div className="thirteen wide column">
-                <Route path="/:path" component={DummyContent} />
+              <div className="twelve wide column">
+                {this.state.navigationEntries.map((entry, index) => {
+                  var routes = [];
+                  routes.push(
+                    <Route
+                      key={entry.key + index}
+                      path={this.entryPath(entry)}
+                      component={DummyContent}
+                      exact
+                    />
+                  );
+
+                  entry.subs.map((sub, index) =>
+                    routes.push(
+                      <Route
+                        key={entry.key + "/" + sub.key + index}
+                        path={sub.path}
+                        component={DummyContent}
+                      />
+                    )
+                  );
+                  return routes.flat();
+                })}
               </div>
             </div>
           </div>
