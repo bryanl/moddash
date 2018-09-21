@@ -4,6 +4,7 @@
 
 * Go 1.11
 * npm
+* Chrome 69 or Firefox 62
 
 ## up and running
 
